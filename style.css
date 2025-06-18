@@ -1,46 +1,119 @@
+/* Reset and base */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f9f9f9;
+  padding: 20px;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
+  color: #333;
 }
 
 #form {
-    max-width: 70%;
-    margin: auto;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 10px;
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 20px;
 }
-
-input {
-    border-color: rgb(118, 118, 118);
-}
-
-#personal-info input, #product-info input {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
 
 fieldset {
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border-color: rgb(118, 118, 118);
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  padding: 15px;
+}
+
+legend {
+  font-weight: bold;
+  padding: 0 8px;
+  color: #555;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border: 1.8px solid #bbb;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.25s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  border-color: #1a73e8;
+  outline: none;
 }
 
 textarea {
-    width: 100%;
-    border-color: rgb(118, 118, 118);
+  resize: vertical;
+  min-height: 80px;
 }
 
 #btn-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 
-#submit-btn, #clear-btn {
-    margin: 10px 15px 0;
+#submit-btn {
+  background-color: #1a73e8;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#submit-btn:hover {
+  background-color: #1669c1;
+}
+
+/* Message box styling */
+#message-box {
+  font-weight: 600;
+  color: #155724; /* green */
+  background-color: #d4edda;
+  border: 1.5px solid #c3e6cb;
+  padding: 8px 14px;
+  border-radius: 5px;
+  min-width: 220px;
+  text-align: center;
+  visibility: hidden;
+}
+
+/* Error colors (red) for field borders will be applied inline by JS */
+
+/* Fieldsets highlight on validation (green/red) also inline via JS */
+
+/* Responsive */
+@media (max-width: 768px) {
+  #form {
+    max-width: 90%;
+    padding: 15px 20px;
+  }
 }
