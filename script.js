@@ -1,4 +1,3 @@
-
 // === DOM SELECTION ===
 const fullName = document.getElementById('full-name');
 const email = document.getElementById('email');
@@ -10,6 +9,10 @@ const complaintDescription = document.getElementById('complaint-description');
 const solutionsGroup = document.querySelectorAll('#solutions-group input[type="radio"]');
 const solutionDescription = document.getElementById('solution-description');
 const form = document.getElementById('form');
+const messageBox = document.getElementById('message-box');
+
+// NEW: Select the new date input (assumed id="complaint-date")
+const complaintDate = document.getElementById('complaint-date');
 
 // === VALIDATION FUNCTION ===
 function validateForm() {
@@ -35,7 +38,18 @@ function validateForm() {
     ? solutionDescription.value.trim().length >= 20
     : true;
 
-  // Return an object with true/false for each validation
+  // NEW: Validate complaint date is set and is not in the past
+  let isDateValid = false;
+  if (complaintDate && complaintDate.value) {
+    const selectedDate = new Date(complaintDate.value);
+    const today = new Date();
+    // Set time to 0 for comparison so only date matters
+    selectedDate.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+    isDateValid = selectedDate >= today;
+  }
+
+  // Return an object with true/false for each validation including new date validation
   return {
     "full-name": isFullNameValid,
     "email": isEmailValid,
@@ -45,7 +59,8 @@ function validateForm() {
     "complaints-group": isComplaintSelected,
     "complaint-description": isComplaintDescValid,
     "solutions-group": isSolutionSelected,
-    "solution-description": isSolutionDescValid
+    "solution-description": isSolutionDescValid,
+    "complaint-date": isDateValid
   };
 }
 
@@ -79,6 +94,11 @@ function highlightFields(validationResult) {
 
   // Solution description
   solutionDescription.style.borderColor = validationResult["solution-description"] ? 'green' : 'red';
+
+  // NEW: Date input border color
+  if (complaintDate) {
+    complaintDate.style.borderColor = validationResult["complaint-date"] ? 'green' : 'red';
+  }
 }
 
 // === EVENT LISTENER FOR FORM SUBMISSION ===
@@ -89,9 +109,20 @@ form.addEventListener('submit', function (e) {
 
   if (!isValid(result)) {
     highlightFields(result);
+    messageBox.textContent = "Please fix the highlighted fields before submitting.";
+    messageBox.style.color = 'red';
   } else {
-    alert("Form submitted successfully!");
-    form.reset();
+    highlightFields(result); // highlight all green on success
+    messageBox.textContent = "Thank you! Your complaint has been submitted successfully.";
+    messageBox.style.color = 'green';
+
+    // Reset form after short delay so user sees message
+    setTimeout(() => {
+      form.reset();
+      messageBox.textContent = "";
+      // reset borders after reset
+      highlightFields(validateForm());
+    }, 4000);
   }
 });
 
@@ -150,3 +181,13 @@ solutionDescription.addEventListener('change', () => {
   solutionDescription.style.borderColor = isValidDesc ? 'green' : 'red';
 });
 
+// NEW: Validate complaint date on change
+if (complaintDate) {
+  complaintDate.addEventListener('change', () => {
+    const selectedDate = new Date(complaintDate.value);
+    const today = new Date();
+    selectedDate.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+    complaintDate.style.borderColor = selectedDate >= today ? 'green' : 'red';
+  });
+}

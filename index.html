@@ -9,8 +9,13 @@
 </head>
 
 <body>
+    <!-- Page Title -->
     <h1>Complaint Form</h1>
+
+    <!-- Complaint Submission Form -->
     <form id="form">
+
+        <!-- Personal Information Section -->
         <fieldset id="personal-info">
             <div>
                 <label for="full-name">Full Name:</label>
@@ -22,7 +27,10 @@
                 <input type="email" id="email" name="email" placeholder="example@domain.com">
             </div>
         </fieldset>
+
         <hr>
+
+        <!-- Product Information Section -->
         <fieldset id="product-info">
             <div>
                 <label for="order-no">Order No:</label>
@@ -38,6 +46,17 @@
             </div>
         </fieldset>
 
+        <!-- 
+            New Addition: 
+            Date input field where the user can specify 
+            the date of their complaint before submitting the form 
+        -->
+        <div>
+            <label for="complaint-date">Date of Complaint:</label>
+            <input type="date" id="complaint-date" name="complaint-date" required>
+        </div>
+
+        <!-- Complaint Reason Section with checkboxes -->
         <fieldset id="complaints-group">
             <legend>Complaint Reason:</legend>
             <div>
@@ -61,12 +80,14 @@
             </div>
         </fieldset>
 
+        <!-- Description of the complaint text area -->
         <div id="complaint-description-container">
             <legend>Description of Complaint Reason</legend>
             <textarea placeholder="Describe the reason of your complaint in at least 20 characters"
                 name="complaint-textarea" id="complaint-description"></textarea>
         </div>
 
+        <!-- Desired Solution Section with radio buttons -->
         <fieldset id="solutions-group">
             <legend>Desired Solution</legend>
             <input type="radio" name="solutions" id="refund" value="refund">
@@ -79,19 +100,30 @@
             <label for="other-solution">Other</label>
         </fieldset>
 
+        <!-- Description of the desired solution text area -->
         <div id="solution-description-container">
             <legend>Description of Desired Solution</legend>
             <textarea placeholder="Describe the desired solution to your issue in at least 20 characters"
                 name="solution-textarea" id="solution-description"></textarea>
         </div>
+
+        <!-- Submit Button and Message Box for confirmation/error messages -->
         <div id="btn-container">
             <button type="submit" id="submit-btn">Submit</button>
+
+            <!--
+                This span is used to show 
+                success confirmation or error messages dynamically 
+                and is accessible with aria-live for screen readers
+            -->
             <span id="message-box" aria-live="polite"></span>
         </div>
 
     </form>
 
+    <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>
+
 
 </html>
